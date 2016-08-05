@@ -66,8 +66,7 @@ public class AuthActivity extends PActivity<AuthPresenter> implements AuthViewCo
 
     @Override
     protected void actionStart(Context context) {
-        Intent intent = new Intent(context, AuthActivity.class);
-        context.startActivity(intent);
+
     }
 
     @Override

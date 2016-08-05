@@ -69,13 +69,15 @@ public class WelcomeActivity extends PActivity<WelcomePresenter> implements Welc
             public void run() {
                 if (!PrefUtils.getPreFversion().equals(ApplicationUtils.getVersionName())) {
                     // TODO: 2016/8/1 jump to guide activity
-                    Router.open(RouterSchema.urlBuilder(RouterSchema.AUTH_PREFIX, "twt"));
+                    Router.open(RouterSchema.AUTH_PREFIX+"/"+"twt");
+                    //Router.open(RouterSchema.urlBuilder(RouterSchema.AUTH_PREFIX, "twt"));
                 } else if (PrefUtils.isLogin()) {
                     // TODO: 2016/8/1 jump to mainactivity
                     Router.open(RouterSchema.urlBuilder(RouterSchema.MAIN_PREFIX));
                 } else {
                     // TODO: 2016/8/1 params to go....
-                    Router.open(RouterSchema.urlBuilder(RouterSchema.AUTH_PREFIX, "twt"));
+                    Router.open(RouterSchema.AUTH_PREFIX+"/"+"twt");
+                    //Router.open(RouterSchema.urlBuilder(RouterSchema.AUTH_PREFIX, "twt"));
                 }
                 finish();
             }

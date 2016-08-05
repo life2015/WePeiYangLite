@@ -1,5 +1,6 @@
 package com.twtstudio.wepeiyanglite.ui.studyRoom;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ public class StudyRoomFragment extends PFragment<StudyRoomPresenter> implements 
     RecyclerView mRecyclerView;
     @BindView(R.id.school_week)
     TextView mWeekText;
+    @BindView(R.id.study_room_refresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private StudyBuildingsAdapter mAdapter;
 
 
@@ -36,10 +39,17 @@ public class StudyRoomFragment extends PFragment<StudyRoomPresenter> implements 
 
     @Override
     protected void initView() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.getBuildings();
+            }
+        });
         mAdapter = new StudyBuildingsAdapter(getContext());
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
         mPresenter.getBuildings();
+
     }
 
 
@@ -51,5 +61,6 @@ public class StudyRoomFragment extends PFragment<StudyRoomPresenter> implements 
     @Override
     public void setWeekNumber(String s) {
         mWeekText.setText(s+" 周");
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

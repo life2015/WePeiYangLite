@@ -80,6 +80,7 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
     @Override
     protected void initView() {
         mGalleryFragment=new GalleryFragment();
+        //mStudyRoomFragment=new StudyRoomFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_container,mGalleryFragment)
                 .commit();
