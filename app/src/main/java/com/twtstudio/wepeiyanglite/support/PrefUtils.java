@@ -17,6 +17,7 @@ public class PrefUtils {
     private static final String PREF_LOST_FOUND_CONTACT_NAME = "lost_found_contact_name";
     private static final String PREF_LOST_FOUND_CONTACT_NUMBER = "lost_found_contact_number";
     private static final String PREF_VERSION = "version";
+    private static final String PREF_BIKE_TOKEN = "bike_token";
 
 
     private static SharedPreferences getDefaultSharedPreferences() {
@@ -87,5 +88,13 @@ public class PrefUtils {
 
     public static String getPreFversion(){
         return getDefaultSharedPreferences().getString(PREF_VERSION, "");
+    }
+
+    public static void setBikeToken(String token){
+        getDefaultSharedPreferences().edit().putString(PREF_BIKE_TOKEN,token).apply();
+    }
+
+    public static String getBikeToken(){
+        return getDefaultSharedPreferences().getString(PREF_BIKE_TOKEN,"");
     }
 }

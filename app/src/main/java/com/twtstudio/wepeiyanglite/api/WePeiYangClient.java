@@ -172,7 +172,7 @@ public class WePeiYangClient {
         }
     };
 
-    public void unsubscribe(Object tag) {
+    public void unSubscribe(Object tag) {
         if (mSubscriptionsMap.containsKey(tag)) {
             CompositeSubscription subscriptions = mSubscriptionsMap.get(tag);
             subscriptions.unsubscribe();

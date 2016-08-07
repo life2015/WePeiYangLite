@@ -20,7 +20,7 @@ public abstract class Presenter {
     }
 
     public void onDestroy() {
-        WePeiYangClient.getInstance().unsubscribe(mContext);
+        WePeiYangClient.getInstance().unSubscribe(mContext);
     }
 
     public void onStart() {
