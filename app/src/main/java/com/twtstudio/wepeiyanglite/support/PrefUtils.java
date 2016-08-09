@@ -18,6 +18,8 @@ public class PrefUtils {
     private static final String PREF_LOST_FOUND_CONTACT_NUMBER = "lost_found_contact_number";
     private static final String PREF_VERSION = "version";
     private static final String PREF_BIKE_TOKEN = "bike_token";
+    private static final String PREF_BIKE_CARD_SIGN = "bike_sign";
+    private static final String PREF_BIKE_CARD_ID = "bike_id";
 
 
     private static SharedPreferences getDefaultSharedPreferences() {
@@ -82,19 +84,35 @@ public class PrefUtils {
         return getDefaultSharedPreferences().getString(PREF_LOST_FOUND_CONTACT_NUMBER, "");
     }
 
-    public static void setPrefVersion(String version){
+    public static void setPrefVersion(String version) {
         getDefaultSharedPreferences().edit().putString(PREF_VERSION, version).apply();
     }
 
-    public static String getPreFversion(){
+    public static String getPreFversion() {
         return getDefaultSharedPreferences().getString(PREF_VERSION, "");
     }
 
-    public static void setBikeToken(String token){
-        getDefaultSharedPreferences().edit().putString(PREF_BIKE_TOKEN,token).apply();
+    public static void setBikeToken(String token) {
+        getDefaultSharedPreferences().edit().putString(PREF_BIKE_TOKEN, token).apply();
     }
 
-    public static String getBikeToken(){
-        return getDefaultSharedPreferences().getString(PREF_BIKE_TOKEN,"");
+    public static String getBikeToken() {
+        return getDefaultSharedPreferences().getString(PREF_BIKE_TOKEN, "");
+    }
+
+    public static void setCardSign(String sign) {
+        getDefaultSharedPreferences().edit().putString(PREF_BIKE_CARD_SIGN, sign).apply();
+    }
+
+    public static String getCardSign() {
+        return getDefaultSharedPreferences().getString(PREF_BIKE_CARD_SIGN, "");
+    }
+
+    public static void setCardId(String id) {
+        getDefaultSharedPreferences().edit().putString(PREF_BIKE_CARD_ID,id).apply();
+    }
+
+    public static String getCardId(){
+        return getDefaultSharedPreferences().getString(PREF_BIKE_CARD_ID,"");
     }
 }

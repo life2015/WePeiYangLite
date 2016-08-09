@@ -38,7 +38,9 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.PActivity;
+import com.twtstudio.wepeiyanglite.ui.bike.bikeAuth.BikeAuthActivity;
 import com.twtstudio.wepeiyanglite.ui.gallery.GalleryFragment;
+import com.twtstudio.wepeiyanglite.ui.home.HomeFragment;
 import com.twtstudio.wepeiyanglite.ui.studyRoom.StudyRoomFragment;
 
 import butterknife.BindView;
@@ -56,6 +58,7 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
 
     private GalleryFragment mGalleryFragment;
     private StudyRoomFragment mStudyRoomFragment;
+    private HomeFragment mHomeFragment;
 
     @Override
     protected MainPresenter getPresenter() {
@@ -79,10 +82,10 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
 
     @Override
     protected void initView() {
-        mGalleryFragment=new GalleryFragment();
+        mGalleryFragment = new GalleryFragment();
         //mStudyRoomFragment=new StudyRoomFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_container,mGalleryFragment)
+                .replace(R.id.frame_container, mGalleryFragment)
                 .commit();
     }
 
@@ -113,7 +116,7 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
         }
     }
 
-    private void initDrawer(Bundle savedInstanceState){
+    private void initDrawer(Bundle savedInstanceState) {
         final IProfile profile = new ProfileDrawerItem().withName("JCY")
                 .withEmail("qq976885345@hotmail.com")
                 .withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
@@ -149,7 +152,12 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
 //                        if (drawerItem instanceof Nameable) {
 //                            Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
 //                        }
-                        if (drawerItem!=null){
+                        if (drawerItem.getIdentifier() == 3) {
+                            Intent intent = new Intent(MainActivity.this, BikeAuthActivity.class);
+                            startActivity(intent);
+                            return false;
+                        }
+                        if (drawerItem != null) {
                             replaceFragment((int) drawerItem.getIdentifier());
                             BaseDrawerItem item = (BaseDrawerItem) drawerItem;
                             //setTitle(item.getName().getText());
@@ -194,29 +202,35 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
         });
     }
 
-    private void replaceFragment(int position){
+    private void replaceFragment(int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = null;
-        switch (position){
+        switch (position) {
             case 1:
-                if (mGalleryFragment == null){
+                if (mGalleryFragment == null) {
                     mGalleryFragment = new GalleryFragment();
                 }
                 fragment = mGalleryFragment;
                 break;
             case 2:
-                if (mStudyRoomFragment == null){
+                if (mStudyRoomFragment == null) {
                     mStudyRoomFragment = new StudyRoomFragment();
                 }
                 fragment = mStudyRoomFragment;
                 break;
+            case 4:
+                if (mHomeFragment == null) {
+                    mHomeFragment = new HomeFragment();
+                }
+                fragment = mHomeFragment;
         }
         fragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.frame_container,fragment)
+                .replace(R.id.frame_container, fragment)
                 .commit();
     }
-    private void setMainTitle(String s){
+
+    private void setMainTitle(String s) {
         getSupportActionBar().setTitle(s);
     }
 }

@@ -63,7 +63,7 @@ public class WePeiYangClient {
     private WePeiYangClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         // TODO: 2016/8/1 buildconfig与微北洋不一样，setlevel有应一个参数的改动 
-        interceptor.setLevel(false ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)

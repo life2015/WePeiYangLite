@@ -1,10 +1,15 @@
 package com.twtstudio.wepeiyanglite.api.bikeApi;
 
+import android.util.Log;
+
 import com.twtstudio.wepeiyanglite.api.WePeiYangClient;
 import com.twtstudio.wepeiyanglite.model.BikeAuth;
+import com.twtstudio.wepeiyanglite.model.BikeCard;
 import com.twtstudio.wepeiyanglite.support.PrefUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +19,12 @@ import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okio.BufferedSink;
+import okio.Okio;
+import okio.Sink;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -41,13 +50,13 @@ public class BikeApiClient {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                .addNetworkInterceptor(sRequsetInterceptor)
+                .addInterceptor(sRequsetInterceptor)
                 .retryOnConnectionFailure(true)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("http://bike.twtstudio.com/api.php")
+                .baseUrl("http://bike.twtstudio.com/api.php/")
                 .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -68,28 +77,57 @@ public class BikeApiClient {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request originRequset = chain.request();
-            //添加header
+            //header
             Request.Builder builder = originRequset.newBuilder()
                     .addHeader("Accept", "application/json");
-            //auth的时候是不需要token的
+            //auth---no token
             List<String> pathList = originRequset.url().pathSegments();
             if (!pathList.contains("auth")) {
-                //遍历增加requestbody
+                //add token
                 if (originRequset.body() instanceof FormBody) {
                     FormBody.Builder newFormBody = new FormBody.Builder();
                     FormBody oldFormBody = (FormBody) originRequset.body();
                     for (int i = 0; i < oldFormBody.size(); i++) {
                         newFormBody.addEncoded(oldFormBody.encodedName(i), oldFormBody.encodedValue(i));
                     }
-                    newFormBody.addEncoded("auth_token", PrefUtils.getBikeToken());
+                    String bike_token= PrefUtils.getBikeToken();
+                    //bike_token.replace("+"," ");
+                    newFormBody.addEncoded("auth_token", bike_token);
+                    Log.d("api", "intercept: " + PrefUtils.getBikeToken());
                     builder.method(originRequset.method(), newFormBody.build());
                 }
-            }
 
+            }
             Request request = builder.build();
+
             return chain.proceed(request);
         }
     };
+//    public static Request interceptRequest(@NotNull Request request, @NotNull String parameter)
+//            throws IOException {
+//
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//
+//        Sink sink = Okio.sink(baos);
+//        BufferedSink bufferedSink = Okio.buffer(sink);
+//
+//        /**
+//         * Write old params
+//         * */
+//        request.body().writeTo(bufferedSink);
+//
+//        /**
+//         * write to buffer additional params
+//         * */
+//        bufferedSink.writeString(parameter, Charset.defaultCharset());
+//
+//        RequestBody newRequestBody = RequestBody.create(
+//                request.body().contentType(),
+//                bufferedSink.buffer().readUtf8()
+//        );
+//
+//        return request.newBuilder().post(newRequestBody).build();
+//    }
 
     public void unSubscribe(Object tag) {
         if (mSubscriptionsMap.containsKey(tag)) {
@@ -117,6 +155,14 @@ public class BikeApiClient {
         Subscription subscription = mService.getBikeToken(wpy_token)
                 .map(new BikeResponseTransformer<BikeAuth>())
                 .compose(BikeApiUtils.<BikeAuth>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag, subscription);
+    }
+
+    public void getBikeCard(Object tag, Subscriber subscriber, String num) {
+        Subscription subscription = mService.getBikeCard(num)
+                .map(new BikeResponseTransformer<List<BikeCard>>())
+                .compose(BikeApiUtils.<List<BikeCard>>applySchedulers())
                 .subscribe(subscriber);
         addSubscription(tag, subscription);
     }
