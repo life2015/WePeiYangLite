@@ -22,7 +22,6 @@ android {
 }
 
 dependencies {
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -47,6 +46,7 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.github.campusappcn.AndRouter:router:1.2.4'
     compile 'commons-codec:commons-codec:1.6'
+    compile 'commons-io:commons-io:2.4'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.afollestad.material-dialogs:core:0.8.6.2'
     //materialdrawers
@@ -64,5 +64,5 @@ dependencies {
     //palette
 
     //compile 'com.github.florent37:glidepalette:2.0.0'
-
+    compile files('libs/amap.jar')
 }
