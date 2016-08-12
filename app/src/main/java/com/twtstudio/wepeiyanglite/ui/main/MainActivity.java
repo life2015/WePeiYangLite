@@ -38,6 +38,7 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.PActivity;
+import com.twtstudio.wepeiyanglite.ui.bike.BikeFragment;
 import com.twtstudio.wepeiyanglite.ui.bike.bikeAuth.BikeAuthActivity;
 import com.twtstudio.wepeiyanglite.ui.gallery.GalleryFragment;
 import com.twtstudio.wepeiyanglite.ui.home.HomeFragment;
@@ -59,6 +60,7 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
     private GalleryFragment mGalleryFragment;
     private StudyRoomFragment mStudyRoomFragment;
     private HomeFragment mHomeFragment;
+    private BikeFragment mBikeFragment;
 
     @Override
     protected MainPresenter getPresenter() {
@@ -223,6 +225,14 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
                     mHomeFragment = new HomeFragment();
                 }
                 fragment = mHomeFragment;
+                break;
+            case 5:
+                if (mBikeFragment == null){
+                    mBikeFragment = new BikeFragment();
+                }
+                fragment = mBikeFragment;
+                break;
+
         }
         fragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

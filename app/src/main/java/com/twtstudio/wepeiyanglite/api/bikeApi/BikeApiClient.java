@@ -5,6 +5,7 @@ import android.util.Log;
 import com.twtstudio.wepeiyanglite.api.WePeiYangClient;
 import com.twtstudio.wepeiyanglite.model.BikeAuth;
 import com.twtstudio.wepeiyanglite.model.BikeCard;
+import com.twtstudio.wepeiyanglite.model.BikeStation;
 import com.twtstudio.wepeiyanglite.support.PrefUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -90,7 +91,7 @@ public class BikeApiClient {
                     for (int i = 0; i < oldFormBody.size(); i++) {
                         newFormBody.addEncoded(oldFormBody.encodedName(i), oldFormBody.encodedValue(i));
                     }
-                    String bike_token= PrefUtils.getBikeToken();
+                    String bike_token = PrefUtils.getBikeToken();
                     //bike_token.replace("+"," ");
                     newFormBody.addEncoded("auth_token", bike_token);
                     Log.d("api", "intercept: " + PrefUtils.getBikeToken());
@@ -165,5 +166,13 @@ public class BikeApiClient {
                 .compose(BikeApiUtils.<List<BikeCard>>applySchedulers())
                 .subscribe(subscriber);
         addSubscription(tag, subscription);
+    }
+
+    public void getStationStatus(Object tag, Subscriber subscriber, String id) {
+        Subscription subscription = mService.getStationStaus(id)
+                .map(new BikeResponseTransformer<List<BikeStation>>())
+                .compose(BikeApiUtils.<List<BikeStation>>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag,subscription);
     }
 }

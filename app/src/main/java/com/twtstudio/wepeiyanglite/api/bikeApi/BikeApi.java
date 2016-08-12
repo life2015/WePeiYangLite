@@ -2,12 +2,15 @@ package com.twtstudio.wepeiyanglite.api.bikeApi;
 
 import com.twtstudio.wepeiyanglite.model.BikeAuth;
 import com.twtstudio.wepeiyanglite.model.BikeCard;
+import com.twtstudio.wepeiyanglite.model.BikeStation;
 
 import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -31,6 +34,9 @@ public interface BikeApi {
     @FormUrlEncoded
     @POST("user/unbind")
     Observable<BikeApiResponse<Void>> unbindBikeCard();
+
+    @GET("station/status")
+    Observable<BikeApiResponse<List<BikeStation>>> getStationStaus(@Query("station") String id);
 
 //    @FormUrlEncoded
 //    @POST("user/info")

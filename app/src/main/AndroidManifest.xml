@@ -15,7 +15,16 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
-    <meta-data android:name="com.amap.api.v2.apikey" android:value="c19d6a593d1c63ac5e8a79b6e579bf69"/>
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
+
+
 
     <application
         android:allowBackup="true"
@@ -24,6 +33,8 @@
         android:supportsRtl="true"
         android:name=".WePeiYangApp"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="c19d6a593d1c63ac5e8a79b6e579bf69"/>
 
         <!-- Welcome Activity -->
         <activity
@@ -50,6 +61,7 @@
         <activity android:name=".ui.studyRoom.detail.DetailActivity"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus"/>
         <activity android:name=".ui.bike.bikeAuth.BikeAuthActivity"/>
+        <service android:name="com.amap.api.location.APSService"/>
     </application>
 
 </manifest>
