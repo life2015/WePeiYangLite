@@ -23,6 +23,8 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.PFragment;
+import com.twtstudio.wepeiyanglite.model.BikeStation;
+import com.twtstudio.wepeiyanglite.support.BikeStationUtils;
 
 import java.util.ArrayList;
 
@@ -35,10 +37,12 @@ import butterknife.BindView;
 public class BikeFragment extends PFragment<BikeFragPresenter> implements BikeViewController, LocationSource, AMapLocationListener, AMap.OnMarkerClickListener, AMap.OnCameraChangeListener {
     @BindView(R.id.amap_view)
     MapView mAmapView;
-//    @BindView(R.id.number_text)
-//    TextView mNumberText;
-//    @BindView(R.id.location_text)
-//    TextView mLocationText;
+    @BindView(R.id.bike_available)
+    TextView mAvailableText;
+    @BindView(R.id.bike_empty)
+    TextView mEmptyText;
+    @BindView(R.id.station_name)
+    TextView mStationName;
     @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout mSlidingUpPanelLayout;
 
@@ -66,8 +70,8 @@ public class BikeFragment extends PFragment<BikeFragPresenter> implements BikeVi
 
     @Override
     protected void initView() {
-        mDetailMarkerOptions = (ArrayList<MarkerOptions>) mPresenter.getStationsDetail();
-        mBriefMarkerOptions = (ArrayList<MarkerOptions>) mPresenter.getStationsBrief();
+        mDetailMarkerOptions = (ArrayList<MarkerOptions>) BikeStationUtils.getInstance().getStationsDetail();
+        //mBriefMarkerOptions = (ArrayList<MarkerOptions>) mPresenter.getStationsBrief();
     }
 
     @Nullable
@@ -88,9 +92,9 @@ public class BikeFragment extends PFragment<BikeFragPresenter> implements BikeVi
 //        mAmap.addMarkers()
 //        Marker marker1=mAmap.addMarker(new MarkerOptions().position(new LatLng(38.997704,117.315942)).icon(BitmapDescriptorFactory.fromResource(R.drawable.qinwa)));
 //        marker1.setTitle("A1");
-        mAmap.addMarkers(mBriefMarkerOptions, true);
+        mAmap.addMarkers(mDetailMarkerOptions, true);
         mAmap.setOnMarkerClickListener(this);
-        mAmap.setOnCameraChangeListener(this);
+       // mAmap.setOnCameraChangeListener(this);
         return view;
     }
 
@@ -114,7 +118,10 @@ public class BikeFragment extends PFragment<BikeFragPresenter> implements BikeVi
         // TODO: 2016/8/11 marker logic
         mSlidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         mSlidingUpPanelLayout.setTouchEnabled(false);
-        marker.getSnippet();
+        mStationName.setText(marker.getTitle());
+        if (marker.getSnippet() != null) {
+            mPresenter.getStationStatus(marker.getSnippet());
+        }
         return true;
     }
 
@@ -191,5 +198,11 @@ public class BikeFragment extends PFragment<BikeFragPresenter> implements BikeVi
     @Override
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
 
+    }
+
+    @Override
+    public void setStationDetail(BikeStation stationDetail) {
+        mAvailableText.setText("可用车辆"+stationDetail.used+" (不佳:"+stationDetail.used_poor+")");
+        mEmptyText.setText("可用空位"+stationDetail.free+" (不佳:"+stationDetail.free_poor+")");
     }
 }

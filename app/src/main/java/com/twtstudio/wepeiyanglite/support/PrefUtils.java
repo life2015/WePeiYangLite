@@ -44,12 +44,17 @@ public class PrefUtils {
 
     public static void setToken(String token) {
         if (token != null) {
-            getDefaultSharedPreferences().edit().putString(PREF_TOKEN, "Bearer{" + token + "}").apply();
+            getDefaultSharedPreferences().edit().putString(PREF_TOKEN, token ).apply();
         }
     }
 
     public static String getToken() {
-        return getDefaultSharedPreferences().getString(PREF_TOKEN, "");
+        String token =  getDefaultSharedPreferences().getString(PREF_TOKEN, "");
+        return "Bearer{" + token + "}";
+    }
+
+    public static String getTokenForBike(){
+        return getDefaultSharedPreferences().getString(PREF_TOKEN,"");
     }
 
     public static void setUsername(String twtuname) {

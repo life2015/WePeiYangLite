@@ -28,7 +28,7 @@ public class BikeAuthPresenter extends BikePresenter {
     }
 
     public void getBikeToken(){
-        String wpy_token = PrefUtils.getToken();
+        String wpy_token = PrefUtils.getTokenForBike();
         BikeApiClient.getInstance().getBikeToken(mContext,new BikeApiSubscriber(mContext,mListener),wpy_token);
     }
 
@@ -48,6 +48,20 @@ public class BikeAuthPresenter extends BikePresenter {
         @Override
         public void onNext(List<BikeCard> bikeCards) {
             Log.d(TAG,bikeCards.get(0).toString());
+            BikeCard card = bikeCards.get(0);
+            PrefUtils.setCardId(card.id);
+            PrefUtils.setCardSign(card.sign);
+        }
+    };
+
+    public void bindBikeCard(){
+        BikeApiClient.getInstance().bindBikeCard(mContext,new BikeApiSubscriber(mContext,mBindListener),PrefUtils.getCardId(),PrefUtils.getCardSign());
+    }
+
+    protected OnNextListener<String> mBindListener = new OnNextListener<String>() {
+        @Override
+        public void onNext(String s) {
+            Log.d(TAG, "onNext: "+"bindok");
         }
     };
 }

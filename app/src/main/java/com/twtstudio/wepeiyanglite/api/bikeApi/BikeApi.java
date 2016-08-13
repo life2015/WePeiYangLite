@@ -3,6 +3,7 @@ package com.twtstudio.wepeiyanglite.api.bikeApi;
 import com.twtstudio.wepeiyanglite.model.BikeAuth;
 import com.twtstudio.wepeiyanglite.model.BikeCard;
 import com.twtstudio.wepeiyanglite.model.BikeStation;
+import com.twtstudio.wepeiyanglite.model.BikeUserInfo;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public interface BikeApi {
 
     @FormUrlEncoded
     @POST("user/bind")
-    Observable<BikeApiResponse<Void>> bindBikeCard(@Field("id") String cardId, @Field("sign") String cardSign);
+    Observable<BikeApiResponse<String>> bindBikeCard(@Field("id") String cardId, @Field("sign") String cardSign);
 
     @FormUrlEncoded
     @POST("user/unbind")
@@ -38,7 +39,8 @@ public interface BikeApi {
     @GET("station/status")
     Observable<BikeApiResponse<List<BikeStation>>> getStationStaus(@Query("station") String id);
 
-//    @FormUrlEncoded
-//    @POST("user/info")
+    @FormUrlEncoded
+    @POST("user/info")
+    Observable<BikeApiResponse<BikeUserInfo>> getUserInfo();
 
 }

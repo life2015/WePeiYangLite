@@ -34,7 +34,7 @@
         android:name=".WePeiYangApp"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="c19d6a593d1c63ac5e8a79b6e579bf69"/>
+        <!--<meta-data android:name="com.amap.api.v2.apikey" android:value="c19d6a593d1c63ac5e8a79b6e579bf69"/>-->
 
         <!-- Welcome Activity -->
         <activity

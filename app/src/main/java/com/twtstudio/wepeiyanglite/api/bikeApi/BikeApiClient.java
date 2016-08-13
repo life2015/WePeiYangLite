@@ -6,6 +6,7 @@ import com.twtstudio.wepeiyanglite.api.WePeiYangClient;
 import com.twtstudio.wepeiyanglite.model.BikeAuth;
 import com.twtstudio.wepeiyanglite.model.BikeCard;
 import com.twtstudio.wepeiyanglite.model.BikeStation;
+import com.twtstudio.wepeiyanglite.model.BikeUserInfo;
 import com.twtstudio.wepeiyanglite.support.PrefUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -173,6 +174,22 @@ public class BikeApiClient {
                 .map(new BikeResponseTransformer<List<BikeStation>>())
                 .compose(BikeApiUtils.<List<BikeStation>>applySchedulers())
                 .subscribe(subscriber);
-        addSubscription(tag,subscription);
+        addSubscription(tag, subscription);
+    }
+
+    public void bindBikeCard(Object tag, Subscriber subscriber, String id, String sign) {
+        Subscription subscription = mService.bindBikeCard(id, sign)
+                .map(new BikeResponseTransformer<String>())
+                .compose(BikeApiUtils.<String>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag, subscription);
+    }
+
+    public void getUserInfo(Object tag, Subscriber subscriber) {
+        Subscription subscription = mService.getUserInfo()
+                .map(new BikeResponseTransformer<BikeUserInfo>())
+                .compose(BikeApiUtils.<BikeUserInfo>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag, subscription);
     }
 }

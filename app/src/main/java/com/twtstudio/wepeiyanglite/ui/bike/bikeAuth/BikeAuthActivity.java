@@ -19,6 +19,8 @@ public class BikeAuthActivity extends PActivity<BikeAuthPresenter> implements Bi
     Button mButton;
     @BindView(R.id.bike_card)
     Button mCardButton;
+    @BindView(R.id.bind_card)
+    Button mBindButton;
     @Override
     protected BikeAuthPresenter getPresenter() {
         return new BikeAuthPresenter(this,this);
@@ -51,6 +53,12 @@ public class BikeAuthActivity extends PActivity<BikeAuthPresenter> implements Bi
             @Override
             public void onClick(View v) {
                 mPresenter.getBikeCard("130727199709231059");
+            }
+        });
+        mBindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.bindBikeCard();
             }
         });
     }

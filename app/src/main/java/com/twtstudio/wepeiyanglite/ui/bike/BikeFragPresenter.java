@@ -44,55 +44,10 @@ public class BikeFragPresenter extends BikePresenter {
         @Override
         public void onNext(List<BikeStation> bikeStations) {
             // TODO: 2016/8/12 更新底部图片的逻辑
+            BikeStation detail  = bikeStations.get(0);
+            mViewController.setStationDetail(detail);
         }
     };
 
-    public List<MarkerOptions> getStationsDetail() {
-        InputStream is = mContext.getResources().openRawResource(R.raw.detail);
-        String detailJsonString = null;
-        try {
-            detailJsonString = IOUtils.toString(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Gson gson = new Gson();
-        List<StationsDetail> detailList = new ArrayList<>();
-        Type type = new TypeToken<ArrayList<StationsDetail>>() {
-        }.getType();
-        detailList = gson.fromJson(detailJsonString, type);
-        List<MarkerOptions> markerOptionsList = new ArrayList<>();
-        for (StationsDetail detail : detailList) {
-            MarkerOptions markerOptions = new MarkerOptions()
-                    .position(new LatLng(detail.lat_c, detail.lng_c))
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_unselected))
-                    .snippet(String.valueOf(detail.id))
-                    .title(detail.name);
-            markerOptionsList.add(markerOptions);
-        }
-        return markerOptionsList;
-    }
 
-    public List<MarkerOptions> getStationsBrief() {
-        InputStream is = mContext.getResources().openRawResource(R.raw.brief);
-        String briefJsonString = null;
-        try {
-            briefJsonString = IOUtils.toString(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Gson gson = new Gson();
-        List<StationsBrief> briefList = new ArrayList<>();
-        Type type = new TypeToken<List<StationsBrief>>() {
-        }.getType();
-        briefList = gson.fromJson(briefJsonString,type);
-        List<MarkerOptions> markerOptionsList = new ArrayList<>();
-        for (StationsBrief brief : briefList) {
-            MarkerOptions markerOptions = new MarkerOptions()
-                    .position(new LatLng(brief.lat_c,brief.lng_c))
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_selected))
-                    .title(brief.name);
-            markerOptionsList.add(markerOptions);
-        }
-        return markerOptionsList;
-    }
 }
