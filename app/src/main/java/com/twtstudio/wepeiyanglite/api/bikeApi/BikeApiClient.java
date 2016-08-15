@@ -186,7 +186,7 @@ public class BikeApiClient {
     }
 
     public void getUserInfo(Object tag, Subscriber subscriber) {
-        Subscription subscription = mService.getUserInfo()
+        Subscription subscription = mService.getUserInfo("fake")
                 .map(new BikeResponseTransformer<BikeUserInfo>())
                 .compose(BikeApiUtils.<BikeUserInfo>applySchedulers())
                 .subscribe(subscriber);

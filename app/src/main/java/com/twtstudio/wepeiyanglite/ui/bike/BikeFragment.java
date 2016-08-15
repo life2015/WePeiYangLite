@@ -115,6 +115,7 @@ public class BikeFragment extends PFragment<BikeFragPresenter> implements BikeVi
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_selected));
         // TODO: 2016/8/11 marker logic
         mSlidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         mSlidingUpPanelLayout.setTouchEnabled(false);

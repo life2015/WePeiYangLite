@@ -31,8 +31,8 @@
             android:layout_height="70dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="#fefefe"
             android:foreground="?android:attr/selectableItemBackground"
+            sothree:cardBackgroundColor="@color/accent"
             sothree:cardCornerRadius="5dp"
             sothree:cardElevation="2dp">
 

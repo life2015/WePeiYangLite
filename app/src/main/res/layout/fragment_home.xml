@@ -153,7 +153,8 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="10dp"
                                             android:text="33楼北侧1-2号桩"
-                                            android:textSize="20dp" />
+                                            android:textSize="20dp"
+                                            android:id="@+id/leave_station" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -170,7 +171,8 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="10dp"
                                             android:text="2016/7/24 9:4:4"
-                                            android:textSize="20dp" />
+                                            android:textSize="20dp"
+                                            android:id="@+id/leave_time" />
                                     </LinearLayout>
                                 </LinearLayout>
                             </LinearLayout>
@@ -207,7 +209,8 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="10dp"
                                             android:text="33楼北侧1-2号桩"
-                                            android:textSize="20dp" />
+                                            android:textSize="20dp"
+                                            android:id="@+id/arr_station" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -224,7 +227,8 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="10dp"
                                             android:text="2016/7/24 9:4:4"
-                                            android:textSize="20dp" />
+                                            android:textSize="20dp"
+                                            android:id="@+id/arr_time" />
                                     </LinearLayout>
                                 </LinearLayout>
                             </LinearLayout>
@@ -250,7 +254,8 @@
                                     android:layout_marginLeft="10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="0.00元"/>
+                                    android:text="本次:0.00元 余额9.40元"
+                                    android:id="@+id/bike_fee" />
                             </LinearLayout>
                         </LinearLayout>
                     </FrameLayout>

@@ -3,12 +3,18 @@ package com.twtstudio.wepeiyanglite;
 import android.util.Log;
 
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+import com.twtstudio.wepeiyanglite.model.BikeUserInfo;
+import com.twtstudio.wepeiyanglite.support.TimeStampUtils;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -65,8 +71,16 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testGallery(){
-   //     WePeiYangClient.getInstance().getGalleryIndex(WePeiYangApp.getContext(),new ApiSubscriber(WePeiYangApp.getContext(),mListener));
+    public void getTime(){
+        System.out.println(TimeStampUtils.getDateString("1469322135"));
     }
-   ;
+
+    @Test
+    public void test1(){
+        List<BikeUserInfo> list = new ArrayList<>();
+        List<String> array=Stream.of(list)
+                .map(str -> str.balance)
+                .collect(Collectors.toList());
+        System.out.println(array);
+    }
 }

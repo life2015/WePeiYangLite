@@ -57,6 +57,13 @@ public class BikeStationUtils {
         }
     }
 
+    public StationsDetail queryId(String id){
+        return mIdMap.get(id);
+    }
+    public StationsDetail queryId(int id){
+        return mIdMap.get(String.valueOf(id));
+    }
+
     public List<MarkerOptions> getStationsDetail() {
         if (!mMarkerOptionsList.isEmpty()){
             return mMarkerOptionsList;

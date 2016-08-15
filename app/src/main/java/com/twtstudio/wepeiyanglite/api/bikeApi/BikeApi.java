@@ -32,7 +32,6 @@ public interface BikeApi {
     @POST("user/bind")
     Observable<BikeApiResponse<String>> bindBikeCard(@Field("id") String cardId, @Field("sign") String cardSign);
 
-    @FormUrlEncoded
     @POST("user/unbind")
     Observable<BikeApiResponse<Void>> unbindBikeCard();
 
@@ -41,6 +40,6 @@ public interface BikeApi {
 
     @FormUrlEncoded
     @POST("user/info")
-    Observable<BikeApiResponse<BikeUserInfo>> getUserInfo();
+    Observable<BikeApiResponse<BikeUserInfo>> getUserInfo(@Field("fake") String fake);
 
 }
