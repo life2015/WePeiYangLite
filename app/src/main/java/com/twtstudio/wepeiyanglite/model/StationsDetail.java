@@ -18,11 +18,15 @@ public class StationsDetail {
      */
 
     public int id;
-    public String name;
+    public String name = "no data";
     public int campus;
     public int lat;
     public int lng;
     public double lat_c;
     public double lng_c;
     public int updated_at;
+
+    public StationsDetail() {
+    }
+
 }

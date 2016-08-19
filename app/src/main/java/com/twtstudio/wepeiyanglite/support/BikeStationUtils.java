@@ -58,10 +58,20 @@ public class BikeStationUtils {
     }
 
     public StationsDetail queryId(String id){
-        return mIdMap.get(id);
+        StationsDetail detail = mIdMap.get(id);
+        if (detail != null) {
+            return detail;
+        }else {
+            return new StationsDetail();
+        }
     }
     public StationsDetail queryId(int id){
-        return mIdMap.get(String.valueOf(id));
+        StationsDetail detail= mIdMap.get(String.valueOf(id));
+        if (detail != null) {
+            return detail;
+        }else {
+            return new StationsDetail();
+        }
     }
 
     public List<MarkerOptions> getStationsDetail() {

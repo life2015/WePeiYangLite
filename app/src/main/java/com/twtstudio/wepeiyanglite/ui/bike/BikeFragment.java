@@ -71,6 +71,7 @@ public class BikeFragment extends PFragment<BikeFragPresenter> implements BikeVi
     @Override
     protected void initView() {
         mDetailMarkerOptions = (ArrayList<MarkerOptions>) BikeStationUtils.getInstance().getStationsDetail();
+        mPresenter.cacheStationStatus();
         //mBriefMarkerOptions = (ArrayList<MarkerOptions>) mPresenter.getStationsBrief();
     }
 
@@ -121,6 +122,7 @@ public class BikeFragment extends PFragment<BikeFragPresenter> implements BikeVi
         mSlidingUpPanelLayout.setTouchEnabled(false);
         mStationName.setText(marker.getTitle());
         if (marker.getSnippet() != null) {
+            mPresenter.queryCachedStatus(marker.getSnippet());
             mPresenter.getStationStatus(marker.getSnippet());
         }
         return true;

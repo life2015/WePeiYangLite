@@ -15,6 +15,7 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
@@ -189,6 +190,14 @@ public class BikeApiClient {
         Subscription subscription = mService.getUserInfo("fake")
                 .map(new BikeResponseTransformer<BikeUserInfo>())
                 .compose(BikeApiUtils.<BikeUserInfo>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag, subscription);
+    }
+
+    public void cacheStationStatus(Object tag, Subscriber subscriber) {
+        Subscription subscription = mService.cacheStationStaus()
+                .map(new BikeResponseTransformer<List<BikeStation>>())
+                .compose(BikeApiUtils.applySchedulers())
                 .subscribe(subscriber);
         addSubscription(tag, subscription);
     }

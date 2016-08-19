@@ -42,4 +42,6 @@ public interface BikeApi {
     @POST("user/info")
     Observable<BikeApiResponse<BikeUserInfo>> getUserInfo(@Field("fake") String fake);
 
+    @GET("station/status")
+    Observable<BikeApiResponse<List<BikeStation>>> cacheStationStaus();
 }
